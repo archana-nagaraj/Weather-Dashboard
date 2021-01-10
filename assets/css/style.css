@@ -1,6 +1,6 @@
 :root {
     --primary: #ccdad1;
-    --secondary: #9caea9;
+    --secondary:#00BFFF;
     --tertiary: #788585;
     --light-dark: #6f6866;
     --dark: #38302e;
@@ -14,4 +14,9 @@
 .navbar {
     font-size: 30px;
     font-style: bold;
+}
+.input-group-text {
+    background-color:var(--secondary);
+    border-radius: var(--border-radius);
+    border: 3px solid var([--primary]);
 }
