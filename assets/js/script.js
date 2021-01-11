@@ -10,6 +10,7 @@
 //  Global Variables
 const apiKey = "3b252b3f0afd61300c13bbf7516fcbb5";
 
+// fetch weather data by city
 var getweatherData = function(cityName){
     // format the weather dashboard api url
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +cityName + "&appid=" +apiKey;
@@ -18,14 +19,8 @@ var getweatherData = function(cityName){
         response.json().then(function(data){
             console.log(data);
         });
-    
     });
 };
-
-getweatherData("London");
-// getweatherData("Bangalore");
-// getweatherData("San Jose");
-
 
 // fetch 5-Day Weather Forecast by city
 var getweatherData_5DayForecast = function(cityName){
@@ -36,10 +31,8 @@ var getweatherData_5DayForecast = function(cityName){
         response.json().then(function(data){
             console.log(data);
         });
-    
     });
 };
 
+getweatherData("London");
 getweatherData_5DayForecast("London");
-// getweatherData_5DayForecast("Bangalore");
-// getweatherData_5DayForecast("San Jose");
