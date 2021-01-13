@@ -17,10 +17,20 @@ var getweatherData = function(cityName){
     // format the weather dashboard api url
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" +cityName + "&appid=" +apiKey;
     // make a request to the url
-    fetch(apiUrl).then(function(response){
-        response.json().then(function(data){
+    fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+        response.json().then(function(data) {
             console.log(data);
         });
+      } else {
+        alert("Error: " + response.statusText);
+      }
+    })
+    .catch(function(error) {
+      // Notice this `.catch()` getting chained onto the end of the `.then()` method
+      alert("Unable to connect to GitHub");
     });
 };
 
@@ -29,10 +39,20 @@ var getweatherData_5DayForecast = function(cityName){
     // format the weather dashboard api url
    var apiUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" +cityName + "&cnt=5&appid=" +apiKey;
     // make a request to the url
-    fetch(apiUrl).then(function(response){
-        response.json().then(function(data){
-             console.log(data);
+    fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+        response.json().then(function(data) {
+            console.log(data);
         });
+      } else {
+        alert("Error: " + response.statusText);
+      }
+    })
+    .catch(function(error) {
+      // Notice this `.catch()` getting chained onto the end of the `.then()` method
+      alert("Unable to connect to GitHub");
     });
 };
 
@@ -45,7 +65,12 @@ var searchInputHandler = function(event) {
         getweatherData_5DayForecast(cityName);
         searchInputEl.value = " "; // clear the input text
     }else{
-        alert("error");
+        alert("Error:" + response.statusText);
     }
+
 };
 searchBtnEl.addEventListener("click", searchInputHandler);
+
+var displayWeatherData = function(){
+    console.log("displaying weather data");
+}
