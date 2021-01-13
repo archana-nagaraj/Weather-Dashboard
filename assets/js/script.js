@@ -71,6 +71,3 @@ var searchInputHandler = function(event) {
 };
 searchBtnEl.addEventListener("click", searchInputHandler);
 
-var displayWeatherData = function(){
-    console.log("displaying weather data");
-}
