@@ -11,8 +11,12 @@
     <title>Weather-Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg text-white bg-dark justify-content-center">Weather Dashboard</nav>
-    <main class="flex-row justify-space-between">
+    <!-- navbar -->
+    <nav class = "navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+        <span class="navbar-text text-white ">Weather Dashboard</span>
+    </nav>
+   
+    <!-- <main class="flex-row justify-space-between">
         <div class="col-12 col-md-4">
             <form>
                 <label for="Search for a City:">Search for a City:</label>
@@ -22,7 +26,32 @@
                   </div>
             </form> 
         <div class="col-12 col-md-8"></div>
-      </main> 
+      </main>  -->
+      <!-- main content -->
+      <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-4">
+                <label class="search-header my-2 p-2">Search for a City:</label>
+                <div class="input-group mb-3">
+                    <input id="search-input" type="text" class="form-control" placeholder="Enter city name..." aria-label="Enter city name" >
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
+                <form id="history"></form>
+            </div>
+
+            <div class= "col-12 col-md-8">
+
+            </div>
+          </div>
+       
+
+
+      </div>
 
     <script src="assets/js/script.js"></script>
 </body> 

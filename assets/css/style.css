@@ -15,8 +15,12 @@
     font-size: 30px;
     font-style: bold;
 }
-.input-group-text {
+.card-body .button {
     background-color:var(--secondary);
     border-radius: var(--border-radius);
-    border: 3px solid var([--primary]);
+    border: 2px solid var([--primary]);
+}
+
+.card-body button:hover {
+  background: #0b7dda;
 }

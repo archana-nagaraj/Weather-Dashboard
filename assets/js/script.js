@@ -9,6 +9,8 @@
 
 //  Global Variables
 const apiKey = "3b252b3f0afd61300c13bbf7516fcbb5";
+var searchInputEl = document.querySelector("#search-input");
+var searchBtnEl = document.querySelector("#search-btn");
 
 // fetch weather data by city
 var getweatherData = function(cityName){
@@ -29,10 +31,21 @@ var getweatherData_5DayForecast = function(cityName){
     // make a request to the url
     fetch(apiUrl).then(function(response){
         response.json().then(function(data){
-            console.log(data);
+             console.log(data);
         });
     });
 };
 
-getweatherData("London");
-getweatherData_5DayForecast("London");
+var searchInputHandler = function(event) {
+    event.preventDefault();
+    // get value form input element
+    var cityName = searchInputEl.value.trim();   // trim() is good to use because we don't want any unnecessary spaces along with the text as username
+    if (cityName){
+        getweatherData(cityName);
+        getweatherData_5DayForecast(cityName);
+        searchInputEl.value = " "; // clear the input text
+    }else{
+        alert("error");
+    }
+};
+searchBtnEl.addEventListener("click", searchInputHandler);
