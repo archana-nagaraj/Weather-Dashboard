@@ -1,10 +1,10 @@
 // create nav bar
-// study weather dashboard documentation
+// study weather dashboard api documentation
 // access weather dashboard api - display in the console
 // Add the search form
 // Handle form submission
-// Display response data on page
 // Add error handling
+// Display response data on page
 // Save the work in Git
 
 //  Global Variables
@@ -34,6 +34,7 @@ var getweatherData = function(cityName){
     });
 };
 
+
 // fetch 5-Day Weather Forecast by city
 var getweatherData_5DayForecast = function(cityName){
     // format the weather dashboard api url
@@ -45,6 +46,7 @@ var getweatherData_5DayForecast = function(cityName){
       if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
+            //displayWeatherData(response.data);
         });
       } else {
         alert("Error: " + response.statusText);
@@ -67,7 +69,13 @@ var searchInputHandler = function(event) {
     }else{
         alert("Error:" + response.statusText);
     }
-
 };
 searchBtnEl.addEventListener("click", searchInputHandler);
+
+// Display response data on page
+var displayWeatherData = function(){
+    console.log("display");
+
+}
+
 
