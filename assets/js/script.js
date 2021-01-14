@@ -23,6 +23,7 @@ var getweatherData = function(cityName){
       if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
+            displayWeatherData(data);
         });
       } else {
         alert("Error: " + response.statusText);
@@ -46,7 +47,7 @@ var getweatherData_5DayForecast = function(cityName){
       if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
-            //displayWeatherData(response.data);
+            
         });
       } else {
         alert("Error: " + response.statusText);
@@ -73,9 +74,32 @@ var searchInputHandler = function(event) {
 searchBtnEl.addEventListener("click", searchInputHandler);
 
 // Display response data on page
-var displayWeatherData = function(){
-    console.log("display");
+var displayWeatherData = function(data){
+    const dataObj = data;
+    const city = dataObj.name;
+    const temperature = dataObj.main.temp;
+    const humidity = dataObj.main.humidity;
+    const windSpeed = dataObj.wind.speed;
+    var weatherPic = dataObj.weather[0].icon;
+    const date = new Date(dataObj.dt*1000).toLocaleDateString('en-US');
 
+    // Set the data to display
+    const card = $("<div>").addClass("card");
+    const cardBody = $("<div>").addClass("card-body");
+    const cityEl = $("<h4>").addClass("card-title").text(city);
+    const currentDateEl = $("<h4>").addClass("card-title").text("(" +date + ")");
+    const imageEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weatherPic + ".png");
+    const tempEl = $("<h4>").addClass("card-title").text("Temperature: " +temperature + ' F');
+    const humidityEl = $("<h4>").addClass("card-title").text("Humidity: " +humidity  + " %");
+    const windspeedEl = $("<h4>").addClass("card-title").text("Wind Speed: " +windSpeed + " MPH");
+    const UVIndexEl = $("<h4>").addClass("card-title").text("UV Index:");
+
+    // display on the page
+    cityEl.append(currentDateEl);
+    cityEl.append(imageEl);
+    cardBody.append(cityEl, tempEl, humidityEl, windspeedEl, UVIndexEl);
+    card.append(cardBody);
+    $("#response-container").append(card);
 }
 
 
