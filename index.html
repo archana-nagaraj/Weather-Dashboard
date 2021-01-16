@@ -15,22 +15,11 @@
     <nav class = "navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
         <span class="navbar-text text-white ">Weather Dashboard</span>
     </nav>
-   
-    <!-- <main class="flex-row justify-space-between">
-        <div class="col-12 col-md-4">
-            <form>
-                <label for="Search for a City:">Search for a City:</label>
-                <div class="input-group">
-                    <input class="form-control" type="search-text">
-                      <span class="input-group-text" id="city-name"><i class="fas fa-search"></i></span>
-                  </div>
-            </form> 
-        <div class="col-12 col-md-8"></div>
-      </main>  -->
       <!-- main content -->
       <div class="container">
           <div class="row">
-            <div class="col-12 col-md-4">
+              <!-- user-input column -->
+            <div class="col-12 col-md-3">
                 <label class="search-header my-2 p-2">Search for a City:</label>
                 <div class="input-group mb-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Enter city name..." aria-label="Enter city name" >
@@ -43,18 +32,24 @@
                 <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
                 <form id="history"></form>
             </div>
-
-            <div class= "col-12 col-md-8" id ="response-container">
-                <div id="response"></div>
-
+              <!-- display response column -->
+            <div class= "col-12 col-md-9" id ="response-container">
+               <!-- current-day -->
+                <div class="currentday-container" id="currentDay"></div>
+                <!-- 5-day forecast -->
+                <div class="fivedayforecast-container">
+                    <div class="row">
+                        <div class="col-12" id="forecast-text"></div>
+                    </div>
+                    <div class="row">
+                        <div class="row" id="forecast" > 
+                    </div>
+                </div>
             </div>
           </div>
-       
-
-
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
-    
 </body> 
 </html>
+

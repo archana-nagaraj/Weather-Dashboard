@@ -24,3 +24,7 @@
 .card-body button:hover {
   background: #0b7dda;
 }
+
+.card{
+  margin: 10px;
+}
