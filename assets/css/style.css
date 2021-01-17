@@ -15,15 +15,15 @@
     font-size: 30px;
     font-style: bold;
 }
-.card-body .button {
+/* .card-body .button {
     background-color:var(--secondary);
     border-radius: var(--border-radius);
     border: 2px solid var([--primary]);
-} */
+} 
 
 .card-body button:hover {
   background: #0b7dda;
-}
+} */
 
 .card{
   margin: 10px;

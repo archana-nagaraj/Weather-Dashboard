@@ -11,8 +11,37 @@
 
 //  Global Variables
 const apiKey = "3b252b3f0afd61300c13bbf7516fcbb5";
-var searchInputEl = document.querySelector("#search-input");
-var searchBtnEl = document.querySelector("#search-btn");
+var searchInputEl = $("#search-input");
+var searchBtnEl = $("#search-btn");
+let searchHistoryEl = $(".historyItems");
+var searchHistoryArr = [];
+
+
+$(document).ready(function() {
+  init();
+
+
+function init(){
+    citySearch();
+    displayHistory();
+    clearHistory();
+    clickHistory();
+};
+
+function citySearch() {
+  searchBtnEl.on('click', function() {
+    citySearch = $('#search-input')
+      .val()
+      .trim();
+    if (citySearch === '') {
+      return;
+    }
+    $('#search-input').val('');
+    getweatherData(citySearch);
+    getweatherData_5DayForecast(citySearch);
+    storeHistory(citySearch);
+  });
+}
 
 // fetch current day weather data by city
 var getweatherData = function(cityName){
@@ -52,31 +81,32 @@ var displayWeatherData_currentDay = function(data){
     const windspeedEl = $("<p>").addClass("card-text").text("Wind Speed: " +data.wind.speed + " MPH");
     const uvIndexUrl= "http://api.openweathermap.org/data/2.5/uvi?lat=" +data.coord.lat + "&lon=" +data.coord.lon +"&appid=" +apiKey;
     // fetching the uvIndex value
-    fetch(uvIndexUrl)
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(uvIndex){
-        /* From resource: https://www.epa.gov/sunsafety/uv-index-scale-0
-        https://www.epa.gov/sites/production/files/documents/uviguide.pdf */
-        // Low
-        if (uvIndex.value >=0 && uvIndex.value <=2){
-          console.log("UVIndex is Low or favourable");
-           var UVIndexEl = $("button").addClass("btn btn-success").text("UV Index: " +uvIndex.value);
-         } // Moderate to High
-         else if (uvIndex.value > 2 && uvIndex.value <= 7){
-           console.log("UVIndex is Moderate to High");
-           var UVIndexEl = $("button").addClass("btn btn-warning").text("UV Index: " +uvIndex.value);
-         } // very High to Extreme
-         else{
-           console.log("UVIndex is Severe or Extreme");
-           var UVIndexEl = $("button").addClass("btn btn-danger").text("UV Index: " +uvIndex.value);
-         }
-         cardBody.append(UVIndexEl);
-    });
+    // fetch(uvIndexUrl)
+    // .then(function(response){
+    //     return response.json();
+    // })
+    // .then(function(uvIndex){
+    //     /* From resource: https://www.epa.gov/sunsafety/uv-index-scale-0
+    //     https://www.epa.gov/sites/production/files/documents/uviguide.pdf */
+    //     // Low
+    //     if (uvIndex.value >=0 && uvIndex.value <=2){
+    //       console.log("UVIndex is Low or favourable");
+    //        var UVIndexEl = $("button").addClass("btn btn-success").text("UV Index: " +uvIndex.value);
+    //      } // Moderate to High
+    //      else if (uvIndex.value > 2 && uvIndex.value <= 7){
+    //        console.log("UVIndex is Moderate to High");
+    //        var UVIndexEl = $("button").addClass("btn btn-warning").text("UV Index: " +uvIndex.value);
+    //      } // very High to Extreme
+    //      else{
+    //        console.log("UVIndex is Severe or Extreme");
+    //        var UVIndexEl = $("button").addClass("btn btn-danger").text("UV Index: " +uvIndex.value);
+    //      }
+    //      cardBody.append(UVIndexEl);
+    // });
     cityEl.append(imageEl);
     cardBody.append(cityEl, tempEl, humidityEl, windspeedEl);
     card.append(cardBody);
+    $("#currentDay").empty();
     $("#currentDay").append(card);
 };
 
@@ -108,7 +138,9 @@ var displayWeatherData_forecast = function(data) {
        let responseList = data.list;
     //    console.log(responseList);
         const forecastTitle = $("<h4>").addClass("forecast-title").text("5-Day Forecast:");
+        $("#forecast-text").empty();
         $("#forecast-text").append(forecastTitle);
+        $("#forecast").empty();
         for ( let i = 0; i < responseList.length; i++){
            // console.log(responseList[i]);
         // Set the data to display
@@ -131,30 +163,92 @@ var displayWeatherData_forecast = function(data) {
 }
 
 
-// handle the user input
-var searchInputHandler = function(event) {
-    event.preventDefault();
-    // get value from input element
-    var cityName = searchInputEl.value.trim();   // trim() is good to use because we don't want any unnecessary spaces along with the text user might accidently type in
-    if (cityName){
-        getweatherData(cityName);
-        getweatherData_5DayForecast(cityName);
-        searchInputEl.value = " "; // clear the input text
-    }else{
-        alert("Error:" + response.statusText);
+function storeHistory(citySearchName) {
+  console.log("entered storeHistory");
+  var searchHistoryObj = {};
+
+  if (searchHistoryArr.length === 0) {
+    searchHistoryObj['city'] = citySearchName;
+    searchHistoryArr.push(searchHistoryObj);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr));
+  } else {
+    var checkHistory = searchHistoryArr.find(
+      ({ city }) => city === citySearchName
+    );
+
+    if (searchHistoryArr.length < 5) {
+      if (checkHistory === undefined) {
+        searchHistoryObj['city'] = citySearchName;
+        searchHistoryArr.push(searchHistoryObj);
+        console.log("1sttime");
+        localStorage.setItem(
+          'searchHistory',
+          JSON.stringify(searchHistoryArr)
+        );
+      }
+    } else {
+      if (checkHistory === undefined) {
+        searchHistoryArr.shift();
+        searchHistoryObj['city'] = citySearchName;
+        searchHistoryArr.push(searchHistoryObj);
+        console.log("2ndtime");
+        localStorage.setItem(
+          'searchHistory',
+          JSON.stringify(searchHistoryArr)
+        );
+      }
     }
-};
+  }
+  $('#search-history').empty();
+  displayHistory();
+}
 
-$(document).on("click", ".historyEntry", function() {
-  console.log("clicked history item")
-  let thisElement = $(this);
-  getweatherData(thisElement.text());
-  getweatherData_5DayForecast(thisElement.text());
-        // searchInputEl.value = " "
-})
+function displayHistory() {
+  console.log("entered displayHistory");
+  var getLocalSearchHistory = localStorage.getItem('searchHistory');
+  var localSearchHistory = JSON.parse(getLocalSearchHistory);
+  console.log(localSearchHistory);
+  if (getLocalSearchHistory === null) {
+    createHistory();
+    getLocalSearchHistory = localStorage.getItem('searchHistory');
+    localSearchHistory = JSON.parse(getLocalSearchHistory);
+  }
 
-searchBtnEl.addEventListener("click", searchInputHandler);
+  for (var i = 0; i < localSearchHistory.length; i++) {
+    var historyLi = $('<li>');
+    historyLi.addClass('list-group-item');
+    historyLi.text(localSearchHistory[i].city);
+    $('#search-history').prepend(historyLi);
+    $('#search-history-container').show();
+  }
+  return (searchHistoryArr = localSearchHistory);
+}
 
+function createHistory() {
+  console.log("entered createHistory");
+  searchHistoryArr.length = 0;
+  console.log("Array" +searchHistoryArr);
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr));
+  
+}
 
+function clearHistory() {
+  console.log("entered clearHistory");
+  $('#clear-button').on('click', function() {
+    $('#search-history').empty();
+    $('#search-history-container').hide();
+    localStorage.removeItem('searchHistory');
+    createHistory();
+  });
+}
 
+function clickHistory() {
+  console.log("entered clickHistory");
+  $('#search-history').on('click', 'li', function() {
+    var cityNameHistory = $(this).text();
+    getweatherData(cityNameHistory);
+    getweatherData_5DayForecast(cityNameHistory);
+  });
+}
 
+});

@@ -19,7 +19,7 @@
       <div class="container">
           <div class="row">
               <!-- user-input column -->
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3 bg-light">
                 <label class="search-header my-2 p-2">Search for a City:</label>
                 <div class="input-group mb-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Enter city name..." aria-label="Enter city name" >
@@ -29,7 +29,24 @@
                         </button>
                     </div>
                 </div>
-
+                <!-- History -->
+                <div class="row">
+                    <div class="col-md-12 h-100 pb-3" id="search-history-container">
+                      <div class="card w-100">
+                        <ul
+                          class="list-group list-group-flush"
+                          id="search-history">
+                        </ul>
+                      </div>
+                      <div
+                        class="d-flex justify-content-end pt-3"
+                        id="clear-button-container">
+                        <button class="btn btn-danger" id="clear-button">
+                          Clear History
+                        </button>
+                      </div>
+                    </div>
+                  </div>
             </div>
               <!-- display response column -->
             <div class= "col-12 col-md-9" id ="response-container">
@@ -37,10 +54,10 @@
                 <div class="currentday-container" id="currentDay"></div>
                 <!-- 5-day forecast -->
                 <div class="fivedayforecast-container">
-                    <div class="row">
+                    <div class="row no-gutters">
                         <div class="col-12" id="forecast-text"></div>
                     </div>
-                    <div class="row">
+                    <div class="row ">
                         <div class="row" id="forecast"> 
                     </div>
                 </div>
