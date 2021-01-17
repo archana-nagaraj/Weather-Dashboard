@@ -134,6 +134,7 @@ var displayWeatherData_forecast = function(data) {
             const imagedDayEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weathericon + ".png")
 
             // display on the page
+            $("#forecast").append()
             cardBody.append(dateDayEl,imagedDayEl, tempDayEl, humidityDayEl);
             cardDay.append(cardBody);
            // $(cardDeck).append(cardDay);
