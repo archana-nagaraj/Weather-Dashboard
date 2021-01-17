@@ -111,11 +111,7 @@ var displayWeatherData_forecast = function(data) {
         $("#forecast-text").append(forecastTitle);
         for ( let i = 0; i < responseList.length; i++){
            // console.log(responseList[i]);
-            //get the vaues
-           
-
-
-            // Set the data to display
+        // Set the data to display
            // const cardDeck = $("<div>").addClass("card-deck");
             const card = $("<div>").addClass("card text-white bg-primary");
             const cardBody = $("<div>").addClass("card-body");
@@ -134,6 +130,7 @@ var displayWeatherData_forecast = function(data) {
         }
 }
 
+
 // handle the user input
 var searchInputHandler = function(event) {
     event.preventDefault();
@@ -148,6 +145,16 @@ var searchInputHandler = function(event) {
     }
 };
 
+$(document).on("click", ".historyEntry", function() {
+  console.log("clicked history item")
+  let thisElement = $(this);
+  getweatherData(thisElement.text());
+  getweatherData_5DayForecast(thisElement.text());
+        // searchInputEl.value = " "
+})
+
 searchBtnEl.addEventListener("click", searchInputHandler);
+
+
 
 
