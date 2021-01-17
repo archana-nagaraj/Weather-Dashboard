@@ -19,7 +19,7 @@
     background-color:var(--secondary);
     border-radius: var(--border-radius);
     border: 2px solid var([--primary]);
-}
+} */
 
 .card-body button:hover {
   background: #0b7dda;
@@ -27,4 +27,24 @@
 
 .card{
   margin: 10px;
+}
+
+.button .btn-low {
+  background-color: lightgreen;
+}
+
+.button .btn-low {
+  background-color: lightgreen;
+}
+
+.button .btn-low {
+  background-color: lightgreen;
+}
+
+.btn-success1 {
+  background-color: lightgreen;
+}
+
+.btn .btn-extreme {
+  background-color: darkviolet;
 }

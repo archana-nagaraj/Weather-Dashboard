@@ -5,7 +5,7 @@
 // Handle form submission
 // Add error handling
 // Display response data on page
-// implement local storage for the searched items
+// implement local storage for the searched cities
 // implement when user cick on the search item , the weather data shows up.
 // Save the work in Git
 
@@ -45,32 +45,51 @@ var displayWeatherData_currentDay = function(data){
     const temperature = Math.floor(((dataObj.main.temp - 273.15) * 1.80 + 32));
     const humidity = dataObj.main.humidity;
     const windSpeed = dataObj.wind.speed;
-    var weatherPic = dataObj.weather[0].icon;
+    var weathericon = dataObj.weather[0].icon;
         //convert Time of data calculation, unix, UTC to date specific locale
     const date = new Date(dataObj.dt*1000).toLocaleDateString('en-US');
-
+   
     // Set the data to display
     const card = $("<div>").addClass("card");
     const cardBody = $("<div>").addClass("card-body");
-    const cityEl = $("<h4>").addClass("card-title").text(city);
-    const currentDateEl = $("<h4>").addClass("card-title").text("("+date + ")");
-    const imageEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weatherPic + ".png");
-    const tempEl = $("<h4>").addClass("card-title").text("Temperature: " +temperature+ ' F');
-    const humidityEl = $("<h4>").addClass("card-title").text("Humidity: " +humidity  + " %");
-    const windspeedEl = $("<h4>").addClass("card-title").text("Wind Speed: " +windSpeed + " MPH");
-    const UVIndexEl = $("<h4>").addClass("card-title").text("UV Index:");
-
-    // display on the page
-    cityEl.append(currentDateEl);
+    const imageEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weathericon + ".png");
+    const cityEl = $("<h4>").addClass("card-title").text(city + "  ("+date + ") " );
+    const tempEl = $("<p>").addClass("card-text").text("Temperature: " +temperature+ ' F');
+    const humidityEl = $("<p>").addClass("card-text").text("Humidity: " +humidity  + " %");
+    const windspeedEl = $("<p>").addClass("card-text").text("Wind Speed: " +windSpeed + " MPH");
+    const uvIndexUrl= "http://api.openweathermap.org/data/2.5/uvi?lat=" +data.coord.lat + "&lon=" +data.coord.lon +"&appid=" +apiKey;
+    // fetching the uvIndex value
+    fetch(uvIndexUrl)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(uvIndex){
+        /* From resource: https://www.epa.gov/sunsafety/uv-index-scale-0
+        https://www.epa.gov/sites/production/files/documents/uviguide.pdf */
+        // Low
+        if (uvIndex.value >=0 && uvIndex.value <=2){
+          console.log("UVIndex is Low or favourable");
+           var UVIndexEl = $("button").addClass("btn btn-success").text("UV Index: " +uvIndex.value);
+         } // Moderate to High
+         else if (uvIndex.value > 2 && uvIndex.value <= 7){
+           console.log("UVIndex is Moderate to High");
+           var UVIndexEl = $("button").addClass("btn btn-warning").text("UV Index: " +uvIndex.value);
+         } // very High to Extreme
+         else{
+           console.log("UVIndex is Severe or Extreme");
+           var UVIndexEl = $("button").addClass("btn btn-danger").text("UV Index: " +uvIndex.value);
+         }
+         cardBody.append(UVIndexEl);
+    });
     cityEl.append(imageEl);
-    cardBody.append(cityEl, tempEl, humidityEl, windspeedEl, UVIndexEl);
+    cardBody.append(cityEl, tempEl, humidityEl, windspeedEl);
     card.append(cardBody);
     $("#currentDay").append(card);
 };
 
 // fetch 5-Day Weather Forecast by city
 var getweatherData_5DayForecast = function(cityName){
-    // format the weather dashboard api url
+    // format the weather dashboard api url by city name
    var apiUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" +cityName + "&cnt=5&appid=" +apiKey;
     // make a request to the url
     fetch(apiUrl)
@@ -94,20 +113,20 @@ var getweatherData_5DayForecast = function(cityName){
 // Display 5-Day Weather Forecast on the page
 var displayWeatherData_forecast = function(data) {
        let responseList = data.list;
-       //console.log(responseList);
-        const forecastTitle = $("<h3>").addClass("forecast-title").text("5-Day Forecast");
+    //    console.log(responseList);
+        const forecastTitle = $("<h4>").addClass("forecast-title").text("5-Day Forecast:");
         $("#forecast-text").append(forecastTitle);
         for ( let i = 0; i < responseList.length; i++){
            // console.log(responseList[i]);
             //get the vaues
             const date = new Date(responseList[i].dt*1000).toLocaleDateString('en-US');
-            console.log(date);
             const temperature = Math.floor(((responseList[i].temp.day - 273.15) * 1.80 + 32));
             const humidity = responseList[i].humidity;
             const weathericon = responseList[i].weather[0].icon;
 
             // Set the data to display
-            const cardDay = $("<div>").addClass("card");
+           // const cardDeck = $("<div>").addClass("card-deck");
+            const cardDay = $("<div>").addClass("card text-white bg-primary");
             const cardBody = $("<div>").addClass("card-body");
             const dateDayEl = $("<p>").addClass("card-title").text(date);
             const tempDayEl = $("<p>").addClass("card-title").text("Temp: " + temperature + ' F');
@@ -117,6 +136,7 @@ var displayWeatherData_forecast = function(data) {
             // display on the page
             cardBody.append(dateDayEl,imagedDayEl, tempDayEl, humidityDayEl);
             cardDay.append(cardBody);
+           // $(cardDeck).append(cardDay);
             $("#forecast").append(cardDay);
         }
 }
@@ -124,8 +144,8 @@ var displayWeatherData_forecast = function(data) {
 // handle the user input
 var searchInputHandler = function(event) {
     event.preventDefault();
-    // get value form input element
-    var cityName = searchInputEl.value.trim();   // trim() is good to use because we don't want any unnecessary spaces along with the text as username
+    // get value from input element
+    var cityName = searchInputEl.value.trim();   // trim() is good to use because we don't want any unnecessary spaces along with the text user might accidently type in
     if (cityName){
         getweatherData(cityName);
         getweatherData_5DayForecast(cityName);
@@ -136,3 +156,5 @@ var searchInputHandler = function(event) {
 };
 
 searchBtnEl.addEventListener("click", searchInputHandler);
+
+
