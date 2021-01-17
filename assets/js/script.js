@@ -38,25 +38,18 @@ var getweatherData = function(cityName){
 
 // Display current day weather on the page
 var displayWeatherData_currentDay = function(data){
-    //get the values from the response
-    const dataObj = data;
-    const city = dataObj.name;
-        // converting temp from Kelvin to Farenheit 
-    const temperature = Math.floor(((dataObj.main.temp - 273.15) * 1.80 + 32));
-    const humidity = dataObj.main.humidity;
-    const windSpeed = dataObj.wind.speed;
-    var weathericon = dataObj.weather[0].icon;
-        //convert Time of data calculation, unix, UTC to date specific locale
-    const date = new Date(dataObj.dt*1000).toLocaleDateString('en-US');
-   
+
     // Set the data to display
     const card = $("<div>").addClass("card");
     const cardBody = $("<div>").addClass("card-body");
-    const imageEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weathericon + ".png");
-    const cityEl = $("<h4>").addClass("card-title").text(city + "  ("+date + ") " );
-    const tempEl = $("<p>").addClass("card-text").text("Temperature: " +temperature+ ' F');
-    const humidityEl = $("<p>").addClass("card-text").text("Humidity: " +humidity  + " %");
-    const windspeedEl = $("<p>").addClass("card-text").text("Wind Speed: " +windSpeed + " MPH");
+    const imageEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+        //convert Time of data calculation, unix, UTC to date specific locale
+    const date = new Date(data.dt*1000).toLocaleDateString('en-US');
+    const cityEl = $("<h4>").addClass("card-title").text(data.name + "  ("+date + ") " );
+    // converting temp from Kelvin to Farenheit 
+    const tempEl = $("<p>").addClass("card-text").text("Temperature: " +Math.floor(((data.main.temp - 273.15) * 1.80 + 32))+ ' F');
+    const humidityEl = $("<p>").addClass("card-text").text("Humidity: " +data.main.humidity  + " %");
+    const windspeedEl = $("<p>").addClass("card-text").text("Wind Speed: " +data.wind.speed + " MPH");
     const uvIndexUrl= "http://api.openweathermap.org/data/2.5/uvi?lat=" +data.coord.lat + "&lon=" +data.coord.lon +"&appid=" +apiKey;
     // fetching the uvIndex value
     fetch(uvIndexUrl)
@@ -119,26 +112,25 @@ var displayWeatherData_forecast = function(data) {
         for ( let i = 0; i < responseList.length; i++){
            // console.log(responseList[i]);
             //get the vaues
-            const date = new Date(responseList[i].dt*1000).toLocaleDateString('en-US');
-            const temperature = Math.floor(((responseList[i].temp.day - 273.15) * 1.80 + 32));
-            const humidity = responseList[i].humidity;
-            const weathericon = responseList[i].weather[0].icon;
+           
+
 
             // Set the data to display
            // const cardDeck = $("<div>").addClass("card-deck");
-            const cardDay = $("<div>").addClass("card text-white bg-primary");
+            const card = $("<div>").addClass("card text-white bg-primary");
             const cardBody = $("<div>").addClass("card-body");
-            const dateDayEl = $("<p>").addClass("card-title").text(date);
-            const tempDayEl = $("<p>").addClass("card-title").text("Temp: " + temperature + ' F');
-            const humidityDayEl = $("<p>").addClass("card-title").text("Humidity: " +humidity  + " %");
-            const imagedDayEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + weathericon + ".png")
+            const date = new Date(responseList[i].dt*1000).toLocaleDateString('en-US');
+            const dateEl = $("<p>").addClass("card-title").text(date);
+            const tempEl = $("<p>").addClass("card-title").text("Temp: " + Math.floor(((responseList[i].temp.day - 273.15) * 1.80 + 32)) + ' F');
+            const humidityEl = $("<p>").addClass("card-title").text("Humidity: " +responseList[i].humidity  + " %");
+            const imagedEl = $("<img>").attr("src", "https://openweathermap.org/img/w/" + responseList[i].weather[0].icon + ".png")
 
             // display on the page
             $("#forecast").append()
-            cardBody.append(dateDayEl,imagedDayEl, tempDayEl, humidityDayEl);
-            cardDay.append(cardBody);
+            cardBody.append(dateEl,imagedEl, tempEl, humidityEl);
+            card.append(cardBody);
            // $(cardDeck).append(cardDay);
-            $("#forecast").append(cardDay);
+            $("#forecast").append(card);
         }
 }
 
