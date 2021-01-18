@@ -13,7 +13,7 @@ An web application that can be used to retrieve weather data for cities all over
 - Bootstrap-4
 - Font-Awesome
 
-### First glance of the app:
+### App UI:
 ![Screenshot](./assets/images/weather-dashboard_final.png)
 
 ### Features:
