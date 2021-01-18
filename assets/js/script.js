@@ -21,16 +21,20 @@ var searchInputEl = $("#search-input");
 var searchBtnEl = $("#search-btn");
 let searchHistoryEl = $(".historyItems");
 var searchHistoryArr = [];
+var historyContainer = $('#search-history-container');
 
 $(document).ready(function() {
   init();
+
 function init(){
     citySearch(); 
+    historyContainer.hide();
     displaySearchHistory();
     clearSearchHistory();
     clickSearchHistory();
 }
 
+// takes user input for fetching the weather data
 function citySearch() {
   searchBtnEl.on('click', function() {
     citySearch = $('#search-input').val().trim();
@@ -177,6 +181,7 @@ var displayWeatherData_forecast = function(data) {
         }
 }
 
+// store the search items in local storage
 function storeHistory(citySearchName) {
   var searchHistoryObj = {};
   if (searchHistoryArr.length === 0) {
@@ -216,6 +221,7 @@ function storeHistory(citySearchName) {
   displaySearchHistory();
 }
 
+// display the searched items on the page ( retrieved form local storage)
 function displaySearchHistory() {
   var getLocalSearchHistory = localStorage.getItem('searchHistory');
   var localSearchHistory = JSON.parse(getLocalSearchHistory);
@@ -234,13 +240,13 @@ function displaySearchHistory() {
   }
   return (searchHistoryArr = localSearchHistory);
 }
-
+// creates an array of searchhistory and stringifies the array item.
 function createSearchHistory() {
   searchHistoryArr.length = 0;
   localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr));
-  
 }
 
+// empties the search history list upon clicking the clear history button
 function clearSearchHistory() {
   $('#clear-button').on('click', function() {
     $('#search-history').empty();
@@ -249,7 +255,7 @@ function clearSearchHistory() {
     createSearchHistory();
   });
 }
-
+// pick cityname form the search history
 function clickSearchHistory() {
   $('#search-history').on('click', 'li', function() {
     var cityNameHistory = $(this).text();
