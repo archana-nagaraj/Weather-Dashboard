@@ -1,50 +1,58 @@
 :root {
-    --primary: #ccdad1;
-    --secondary:#00BFFF;
-    --tertiary: #788585;
-    --light-dark: #6f6866;
-    --dark: #38302e;
-    --border-radius: .3rem;
+    --primary: white;
   }
   
-  * {
+  /* * {
     box-sizing: border-box;
-  }
+  } */
 
 .navbar {
     font-size: 30px;
     font-style: bold;
 }
-/* .card-body .button {
-    background-color:var(--secondary);
-    border-radius: var(--border-radius);
-    border: 2px solid var([--primary]);
-} 
-
-.card-body button:hover {
-  background: #0b7dda;
-} */
 
 .card{
-  margin: 10px;
+  margin: 5px;
 }
 
-.button .btn-low {
-  background-color: lightgreen;
+.forecast {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+/* UV Index value styling */
+
+.favourable {
+  background-color: green;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+  color: var(--primary);
 }
 
-.button .btn-low {
-  background-color: lightgreen;
+.moderate {
+  background-color: orange;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+  color: var(--primary);
 }
 
-.button .btn-low {
-  background-color: lightgreen;
+.severe {
+  background-color: red;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 150px;  
+  color: var(--primary);
 }
 
-.btn-success1 {
-  background-color: lightgreen;
-}
-
-.btn .btn-extreme {
-  background-color: darkviolet;
+.extreme {
+  background-color: violet;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+  color: var(--primary);
 }
