@@ -14,6 +14,9 @@ An web application that can be used to retrieve weather data for cities all over
 - Font-Awesome
 
 ### App UI:
+Landing page:
+![Screenshot](./assets/images/weather-dashboard_landingPage.png)
+Weather-dashboard:
 ![Screenshot](./assets/images/weather-dashboard_final.png)
 
 ### Features:
