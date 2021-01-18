@@ -27,7 +27,7 @@ An web application that can be used to retrieve weather data for cities all over
     5. humidity
     6. wind speed
     7. UV index
-4. UV index is presented with a color that indicates whether the conditions are favorable, moderate high, severe or extreme
+4. UV index value is presented with a color that indicates whether the conditions are favorable(1-2: green), moderate(3-5: yellow-orange) high (6-7: red-orange), severe (7-9: red) or extreme(11+: darkpurple)
     - Resources used for color representation
      1. [EPA/SunSafety](https://www.epa.gov/sunsafety/uv-index-scale-0)
      2. [EPA/SunSafety](https://www.epa.gov/sites/production/files/documents/uviguide.pdf)
