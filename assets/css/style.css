@@ -1,11 +1,12 @@
 :root {
     --primary: white;
+    --favourable: green; 
+    --moderate: #FFCC00;
+    --high: #f37220;
+    --severe: red;
+    --extreme: darkviolet;
   }
   
-  /* * {
-    box-sizing: border-box;
-  } */
-
 .navbar {
     font-size: 30px;
     font-style: bold;
@@ -22,7 +23,7 @@
 /* UV Index value styling */
 
 .favourable {
-  background-color: green;
+  background-color: var(--favourable);
   border-radius: 5px;
   padding: 10px;
   width: 200px;
@@ -31,7 +32,16 @@
 }
 
 .moderate {
-  background-color: orange;
+  background-color: var(--moderate);
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+  color: var(--primary);
+}
+
+.high {
+  background-color: var(--high);
   border-radius: 5px;
   padding: 10px;
   width: 200px;
@@ -40,7 +50,7 @@
 }
 
 .severe {
-  background-color: red;
+  background-color: var(--severe);
   border-radius: 5px;
   padding: 10px;
   width: 200px;
@@ -49,7 +59,7 @@
 }
 
 .extreme {
-  background-color: violet;
+  background-color: var(--extreme);
   border-radius: 5px;
   padding: 10px;
   width: 200px;
