@@ -10,15 +10,15 @@ An web application that can be used to retrieve weather data for cities all over
 - CSS
 - JavaScript
 - jQuery
-- Bootstrap
+- Bootstrap-4
 - Font-Awesome
 
 ### First glance of the app:
-![Screenshot]()
+![Screenshot](./assets/images/weather-dashboard_final.png)
 
 ### Features:
 1. User is presented with a form where cityname is searched for. 
-2. Using the search input, the app makes a call to the OpenWeather API(https://openweathermap.org/api) and loads the response for current day and also the forecast for the next 5-days.
+2. Using the search input, the app makes a call to the [OpenWeather API](https://openweathermap.org/api) and loads the response for current day and also the forecast for the next 5-days.
 3. Following data are shown in the current-day response which is loaded dynamically
     1. city name
     2. current date
@@ -29,9 +29,9 @@ An web application that can be used to retrieve weather data for cities all over
     7. UV index
 4. UV index is presented with a color that indicates whether the conditions are favorable, moderate high, severe or extreme
     - Resources used for color representation
-     1. https://www.epa.gov/sunsafety/uv-index-scale-0
-     2. https://www.epa.gov/sites/production/files/documents/uviguide.pdf 
-     3. https://www.dreamstime.com/illustration/uv-index.html  
+     1. [EPA/SunSafety](https://www.epa.gov/sunsafety/uv-index-scale-0)
+     2. [EPA/SunSafety](https://www.epa.gov/sites/production/files/documents/uviguide.pdf)
+     3. [Dreamstime](https://www.dreamstime.com/illustration/uv-index.html)  
 5. Future weather conditions for the city searched is shown for 5-days
 6. Following data are shown in the 5-day forecast response which is loaded dynamically
     1. date
