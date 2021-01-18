@@ -29,7 +29,7 @@ function init(){
     displaySearchHistory();
     clearSearchHistory();
     clickSearchHistory();
-};
+}
 
 function citySearch() {
   searchBtnEl.on('click', function() {
