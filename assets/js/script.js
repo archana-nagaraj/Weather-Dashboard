@@ -12,10 +12,10 @@
 //  Global Variables
 const apiKey = "3b252b3f0afd61300c13bbf7516fcbb5";
 // api urls
-const apiUrl_currentDay = "http://api.openweathermap.org/data/2.5/weather?q=";
-const apiUrl_forecast = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" ;
-const weathericonUrl = "https://openweathermap.org/img/w/";
-const uvUrl = "http://api.openweathermap.org/data/2.5/uvi?lat=" ;
+const apiUrl_currentDay = "https://api.openweathermap.org/data/2.5/weather?q=";
+const apiUrl_forecast = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" ;
+const weathericonUrl = "http://openweathermap.org/img/w/";
+const uvUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" ;
 
 var searchInputEl = $("#search-input");
 var searchBtnEl = $("#search-btn");
