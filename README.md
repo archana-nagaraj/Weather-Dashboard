@@ -41,7 +41,7 @@ Weather-dashboard:
     2. an icon representation of weather conditions
     3. temperature
     4. humidity
-7. Searched cities are stored in local storage.
+7. Searched cities are stored in local storage. Upto 10 cities are displayed in the search history and follows a LIFO ( Last in first out) rule. 
 8. User can select/click on cities from the search history to view the weather response.
 9. This app will run in the **browser** - Chrome and Mozilla-Firefox
 
